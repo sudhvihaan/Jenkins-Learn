@@ -17,7 +17,7 @@ pipeline {
         always {
             echo 'Sending build info to Jira...'
             jiraSendBuildInfo(
-                site: 'JIRA_SITE_NAME' // Replace with your Jira site name configured in Jenkins
+                site: 'devopsfacto.atlassian.net' // Replace with your Jira site name configured in Jenkins
             )
         }
     }
