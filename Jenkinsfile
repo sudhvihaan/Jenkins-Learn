@@ -1,12 +1,11 @@
-
 pipeline {
     agent any
 
     stages {
         stage('Build') {
             steps {
-                echo 'Building...'
-                // Add actual build commands here, e.g., 'sh "make build"' or any other build commands.
+                echo 'git pull'
+                 git clone "https://github.com/sudhvihaan/djangoApp1.git"
             }
         }
     }
