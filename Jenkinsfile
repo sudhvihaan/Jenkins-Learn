@@ -4,7 +4,7 @@ properties([
     pipelineTriggers([
         upstream(
             threshold: hudson.model.Result.SUCCESS,
-            upstreamProjects: 'Job1'
+            upstreamProjects: 'Job1-to-trigger-another-job'
         )
     ])
 ])
