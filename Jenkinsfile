@@ -1,5 +1,4 @@
-@Library('helloMessage') _   // Load the helloMessage shared library
-@Library('getUser') _        // Load the getUser shared library
+@Library(['helloMessage', 'getUser']) _  // Load both libraries together
 
 properties([
     pipelineTriggers([
@@ -20,19 +19,15 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Cloning repository...'
-                // Call the hello() function from the helloMessage shared library
-                hello()
+                hello()   // Call hello() from helloMessage shared library
                 jiraComment body: 'Hello from Jenkins', issueKey: 'KAN-2'
-
-                // Use Jenkins 'git' step to clone the repository
                 git url: 'https://github.com/sudhvihaan/djangoApp1.git', branch: 'main'
             }
         }
 
         stage('Input') {
             steps {
-                // Call the getUser function from the getUser shared library
-                getUser 'Enter response 1','Enter response 2'
+                getUser 'Enter response 1', 'Enter response 2'  // Call getUser() from getUser shared library
             }
         }
     }
@@ -41,7 +36,7 @@ pipeline {
         always {
             echo 'Sending build info to Jira...'
             jiraSendBuildInfo(
-                site: 'devopsfacto.atlassian.net' // Replace with your Jira site name
+                site: 'devopsfacto.atlassian.net'  // Replace with your Jira site name
             )
         }
     }
