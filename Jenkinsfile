@@ -1,4 +1,5 @@
-@Library('helloMessage') _
+@Library('helloMessage') _   // Load the helloMessage shared library
+@Library('getUser') _        // Load the getUser shared library
 
 properties([
     pipelineTriggers([
@@ -19,7 +20,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Cloning repository...'
-                // Call the hello() function from the shared library
+                // Call the hello() function from the helloMessage shared library
                 hello()
                 jiraComment body: 'Hello from Jenkins', issueKey: 'KAN-2'
 
@@ -28,16 +29,13 @@ pipeline {
             }
         }
 
-
         stage('Input') {
             steps {
+                // Call the getUser function from the getUser shared library
                 getUser 'Enter response 1','Enter response 2'
             }
         }
     }
-
-
-
 
     post {
         always {
