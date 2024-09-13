@@ -31,7 +31,7 @@ pipeline {
                             echo 'Cloning repository...'
                             hello()   // Call hello() from helloMessage shared library
                             jiraComment body: 'Hello from Jenkins', issueKey: 'KAN-2'
-                            git url: 'https://github.com/sudhvihaan/djangoApp1.git', branch: "${params.BRANCH_NAME}"  // Use params.BRANCH_NAME
+                            git url: 'https://github.com/sudhvihaan/djangoApp1.git', branch: "${params.BRANCH_NAME}"  // Use params.BRANCH_NAMEasdasd
                         }
                     }
                 }
