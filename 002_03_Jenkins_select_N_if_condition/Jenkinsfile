@@ -1,84 +1,26 @@
 @Library('MySharedLibrary') _
 
-properties([
-    pipelineTriggers([
-        upstream(
-            threshold: hudson.model.Result.SUCCESS,
-            upstreamProjects: 'Job1-to-trigger-another-job'
-        )
-    ])
-])
-
 pipeline {
     agent {
         label 'jenkins-slave' // This is the agent used for the pipeline
     }
 
     parameters {
-        string(
-            defaultValue: 'main',  // Default value if not provided
-            description: 'Branch name to build',
-            name: 'BRANCH_NAME'
-        )
+        string(defaultValue: '', description: '', name: 'BRANCH_NAME')
+        choice(choices: ['DEBUG', 'RELEASE', 'TEST'], description: '', name: 'BUILD_TYPE')
     }
 
     stages {
-        stage('Parallel Execution') {
-            parallel {
-                stage('Build') {
-                    steps {
-                        lock('worker_node1') {  // Lock the worker_node1 resource
-                            echo 'Cloning repository...'
-                            hello()   // Call hello() from helloMessage shared library
-                            jiraComment body: 'Hello from Jenkins', issueKey: 'KAN-2'
-                            git url: 'https://github.com/sudhvihaan/djangoApp1.git', branch: "${params.BRANCH_NAME}"  // Use params.BRANCH_NAMEasdasd
-                        }
-                    }
-                }
-
-                stage('Input') {
-                    steps {
-                        lock('worker_node1') {  // Lock the worker_node1 resource for exclusive access
-                            getUser 'Enter response 1', 'Enter response 2'  // Call getUser() from getUser shared library
-                        }
-                    }
+        stage('process') {
+            when {
+                allOf {
+                    expression { params.BRANCH_NAME == "master" }
+                    expression { params.BUILD_TYPE == 'RELEASE' }
                 }
             }
-        }
-
-        stage('Selection') {
             steps {
-                script {
-                    responses = input message: 'Select branch',
-                        parameters: [
-                            choice(choices: ['main', 'master', 'qa'], description: 'Select the branch', name: 'BRANCH_NAME')
-                        ]
-                    echo "Selected branch: ${responses.BRANCH_NAME}"  // Use the responses.BRANCH_NAME
-                }
+                echo "Kicking off production build\n"
             }
-        }
-
-        stage('Process') {
-            steps {
-                script {
-                    if (responses.BRANCH_NAME == 'main') {
-                        echo "You selected main"
-                    } else if (responses.BRANCH_NAME == 'master') {
-                        echo "You selected master"
-                    } else {
-                        echo "You selected qa"
-                    }
-                }
-            }
-        }
-    }
-
-    post {
-        always {
-            echo 'Sending build info to Jira...'
-            jiraSendBuildInfo(
-                site: 'devopsfacto.atlassian.net'  // Replace with your Jira site name
-            )
         }
     }
 }
