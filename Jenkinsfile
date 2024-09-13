@@ -1,4 +1,3 @@
-//@Library(['helloMessage', 'getUser']) _  // Load both libraries together
 @Library('MySharedLibrary') _
 
 properties([
@@ -12,23 +11,27 @@ properties([
 
 pipeline {
     agent {
-        label 'jenkins-slave' // Replace with your agent label
+        label 'jenkins-slave' // This is the agent used for the pipeline
     }
 
     stages {
 
         stage('Build') {
             steps {
-                echo 'Cloning repository...'
-                hello()   // Call hello() from helloMessage shared library
-                jiraComment body: 'Hello from Jenkins', issueKey: 'KAN-2'
-                git url: 'https://github.com/sudhvihaan/djangoApp1.git', branch: 'main'
+                lock('worker_node1') {  // Lock the worker_node1 resource
+                    echo 'Cloning repository...'
+                    hello()   // Call hello() from helloMessage shared library
+                    jiraComment body: 'Hello from Jenkins', issueKey: 'KAN-2'
+                    git url: 'https://github.com/sudhvihaan/djangoApp1.git', branch: 'main'
+                }
             }
         }
 
         stage('Input') {
             steps {
-                getUser 'Enter response 1', 'Enter response 2'  // Call getUser() from getUser shared library
+                lock('worker_node1') {  // Lock the worker_node1 resource for exclusive access
+                    getUser 'Enter response 1', 'Enter response 2'  // Call getUser() from getUser shared library
+                }
             }
         }
     }
