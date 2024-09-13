@@ -38,26 +38,26 @@ pipeline {
             }
         }
 
-        stage('selection') {
+        stage('Selection') {
             steps {
                 script {
                     responses = input message: 'Select branch',
-                    parameters: [
-                        choice(choices: ['main', 'master', 'qa'], description: '', name: 'BRANCH_NAME')
-                    ]
+                        parameters: [
+                            choice(choices: ['main', 'master', 'qa'], description: 'Select the branch', name: 'BRANCH_NAME')
+                        ]
                 }
             }
         }
 
-        stage('process') {
+        stage('Process') {
             steps {
                 script {
                     if (responses.BRANCH_NAME == 'main') {
-                        echo "You selected main\n"
+                        echo "You selected main"
                     } else if (responses.BRANCH_NAME == 'master') {
-                        echo "You selected master\n"
+                        echo "You selected master"
                     } else {
-                        echo "You selected qa\n"
+                        echo "You selected qa"
                     }
                 }
             }
