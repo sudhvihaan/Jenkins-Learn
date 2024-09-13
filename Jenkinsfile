@@ -1,4 +1,5 @@
-@Library(['helloMessage', 'getUser']) _  // Load both libraries together
+//@Library(['helloMessage', 'getUser']) _  // Load both libraries together
+@Library('MySharedLibrary') _
 
 properties([
     pipelineTriggers([
