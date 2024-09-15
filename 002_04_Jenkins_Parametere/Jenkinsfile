@@ -12,6 +12,12 @@ pipeline {
         // Choice Parameter
         choice(choices: ['DEBUG', 'RELEASE', 'TEST'], description: 'Choose build type', name: 'BUILD_TYPE')
 
+
+	// Uncomment and configure these parameters as needed:
+        // Boolean Parameter
+        booleanParam(defaultValue: false, description: 'Should we run the tests?', name: 'RUN_TESTS')
+
+
     }
 
     stages {
@@ -23,6 +29,9 @@ pipeline {
 
                     // Echo Choice Parameter
                     echo "Build Type: ${params.BUILD_TYPE}"
+		
+		    // Boolean
+		    echo "Run Tests: ${params.RUN_TESTS}"
 
                 }
             }
