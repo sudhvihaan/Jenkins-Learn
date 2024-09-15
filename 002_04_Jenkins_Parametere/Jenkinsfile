@@ -31,7 +31,7 @@ pipeline {
         credentials(description: 'Select credentials for the job', name: 'CREDENTIALS_ID')
 
         // Git Branch Parameter
-        gitParameter(branch: 'origin/*', name: 'GIT_BRANCH', type: 'PT_BRANCH')
+        gitParameter(branch: 'origin/*', name: 'main', type: 'PT_BRANCH')
 
         // Extended Choice Parameter
         extendedChoice(
