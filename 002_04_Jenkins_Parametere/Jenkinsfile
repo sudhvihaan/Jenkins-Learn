@@ -13,22 +13,22 @@ pipeline {
         choice(choices: ['DEBUG', 'RELEASE', 'TEST'], description: 'Choose build type', name: 'BUILD_TYPE')
 
         // Boolean Parameter
-        booleanParam(defaultValue: false, description: 'Should we run the tests?', name: 'RUN_TESTS')
+        //booleanParam(defaultValue: false, description: 'Should we run the tests?', name: 'RUN_TESTS')
 
         // Text Parameter
-        text(defaultValue: '', description: 'Enter a detailed description of the build', name: 'BUILD_DESCRIPTION')
+        //text(defaultValue: '', description: 'Enter a detailed description of the build', name: 'BUILD_DESCRIPTION')
 
         // Password Parameter
-        password(defaultValue: '', description: 'Enter your password', name: 'USER_PASSWORD')
+       // password(defaultValue: '', description: 'Enter your password', name: 'USER_PASSWORD')
 
         // File Parameter
-        file(description: 'Upload a configuration file', name: 'CONFIG_FILE')
+        //file(description: 'Upload a configuration file', name: 'CONFIG_FILE')
 
         // Run Parameter (fixed)
-        run(description: 'Pick a previous build from this job', name: 'PREVIOUS_BUILD')
+        //run(description: 'Pick a previous build from this job', name: 'PREVIOUS_BUILD')
 
         // Credentials Parameter
-        credentials(description: 'Select credentials for the job', name: 'CREDENTIALS_ID')
+        //credentials(description: 'Select credentials for the job', name: 'CREDENTIALS_ID')
 
         // Git Branch Parameter (remove if plugin not installed)
         // gitParameter(branch: 'origin/*', name: 'GIT_BRANCH', type: 'PT_BRANCH')
@@ -45,24 +45,24 @@ pipeline {
                     echo "Build Type: ${params.BUILD_TYPE}"
 
                     // Echo Boolean Parameter
-                    echo "Run Tests: ${params.RUN_TESTS}"
+                    //echo "Run Tests: ${params.RUN_TESTS}"
 
                     // Echo Text Parameter
-                    echo "Build Description: ${params.BUILD_DESCRIPTION}"
+                    //echo "Build Description: ${params.BUILD_DESCRIPTION}"
 
                     // Echo Password Parameter (masked)
-                    echo "User Password: ********"
+                    //echo "User Password: ********"
 
                     // Echo File Parameter
-                    if (params.CONFIG_FILE) {
-                        echo "Config File: ${params.CONFIG_FILE}"
-                    }
+                    //if (params.CONFIG_FILE) {
+                    //    echo "Config File: ${params.CONFIG_FILE}"
+                    //}
 
                     // Echo Run Parameter
-                    echo "Previous Build: ${params.PREVIOUS_BUILD}"
+                    //echo "Previous Build: ${params.PREVIOUS_BUILD}"
 
                     // Echo Credentials Parameter
-                    echo "Credentials ID: ${params.CREDENTIALS_ID}"
+                    //echo "Credentials ID: ${params.CREDENTIALS_ID}"
                 }
             }
         }
