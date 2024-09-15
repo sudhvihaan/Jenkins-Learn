@@ -24,23 +24,14 @@ pipeline {
         // File Parameter
         file(description: 'Upload a configuration file', name: 'CONFIG_FILE')
 
-        // Run Parameter
-        run(description: 'Pick a previous build from another job', job: 'OtherJob', name: 'PREVIOUS_BUILD')
+        // Run Parameter (fixed)
+        run(description: 'Pick a previous build from this job', name: 'PREVIOUS_BUILD')
 
         // Credentials Parameter
         credentials(description: 'Select credentials for the job', name: 'CREDENTIALS_ID')
 
-        // Git Branch Parameter
-       // gitParameter(branch: 'origin/*', name: 'main', type: 'PT_BRANCH')
-
-        // Extended Choice Parameter
-        extendedChoice(
-            name: 'CHOICES',
-            description: 'Choose multiple values',
-            multiSelectDelimiter: ',',
-            type: 'PT_CHECKBOX',
-            value: 'OPTION1,OPTION2,OPTION3'
-        )
+        // Git Branch Parameter (remove if plugin not installed)
+        // gitParameter(branch: 'origin/*', name: 'GIT_BRANCH', type: 'PT_BRANCH')
     }
 
     stages {
@@ -59,8 +50,8 @@ pipeline {
                     // Echo Text Parameter
                     echo "Build Description: ${params.BUILD_DESCRIPTION}"
 
-                    // Echo Password Parameter (use with caution in real environments)
-                    echo "User Password (masked): ********"
+                    // Echo Password Parameter (masked)
+                    echo "User Password: ********"
 
                     // Echo File Parameter
                     if (params.CONFIG_FILE) {
@@ -72,12 +63,6 @@ pipeline {
 
                     // Echo Credentials Parameter
                     echo "Credentials ID: ${params.CREDENTIALS_ID}"
-
-                    // Echo Git Branch Parameter
-                    //echo "Git Branch: ${params.GIT_BRANCH}"
-
-                    // Echo Extended Choice Parameter
-                    echo "Selected Choices: ${params.CHOICES}"
                 }
             }
         }
