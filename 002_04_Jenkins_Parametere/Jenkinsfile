@@ -12,28 +12,6 @@ pipeline {
         // Choice Parameter
         choice(choices: ['DEBUG', 'RELEASE', 'TEST'], description: 'Choose build type', name: 'BUILD_TYPE')
 
-        // Uncomment and configure these parameters as needed:
-
-        // Boolean Parameter
-        // booleanParam(defaultValue: false, description: 'Should we run the tests?', name: 'RUN_TESTS')
-
-        // Text Parameter
-        // text(defaultValue: '', description: 'Enter a detailed description of the build', name: 'BUILD_DESCRIPTION')
-
-        // Password Parameter
-        // password(defaultValue: '', description: 'Enter your password', name: 'USER_PASSWORD')
-
-        // File Parameter
-        // file(description: 'Upload a configuration file', name: 'CONFIG_FILE')
-
-        // Run Parameter
-        // run(description: 'Pick a previous build from this job', name: 'PREVIOUS_BUILD')
-
-        // Credentials Parameter
-        // credentials(description: 'Select credentials for the job', name: 'CREDENTIALS_ID')
-
-        // Git Branch Parameter (remove if plugin not installed)
-        // gitParameter(branch: 'origin/*', name: 'GIT_BRANCH', type: 'PT_BRANCH')
     }
 
     stages {
@@ -46,27 +24,6 @@ pipeline {
                     // Echo Choice Parameter
                     echo "Build Type: ${params.BUILD_TYPE}"
 
-                    // Uncomment these lines if you decide to use the parameters
-
-                    // Echo Boolean Parameter
-                    // echo "Run Tests: ${params.RUN_TESTS}"
-
-                    // Echo Text Parameter
-                    // echo "Build Description: ${params.BUILD_DESCRIPTION}"
-
-                    // Echo Password Parameter (masked)
-                    // echo "User Password: ********"
-
-                    // Echo File Parameter
-                    // if (params.CONFIG_FILE) {
-                    //    echo "Config File: ${params.CONFIG_FILE}"
-                    // }
-
-                    // Echo Run Parameter
-                    // echo "Previous Build: ${params.PREVIOUS_BUILD}"
-
-                    // Echo Credentials Parameter
-                    // echo "Credentials ID: ${params.CREDENTIALS_ID}"
                 }
             }
         }
