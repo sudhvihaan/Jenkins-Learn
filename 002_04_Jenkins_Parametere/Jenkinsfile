@@ -1,0 +1,20 @@
+@Library('MySharedLibrary') _
+
+pipeline {
+    agent {
+        label 'jenkins-slave' // This is the agent used for the pipeline
+    }
+
+    parameters {
+        string(defaultValue: "maintainer", description: 'Enter user role:', name: 'userRole')
+    }
+
+    stages {
+        stage('listVals') {
+            steps {
+                echo "User's role = ${params.userRole}"
+            }
+        }
+    }
+}
+
