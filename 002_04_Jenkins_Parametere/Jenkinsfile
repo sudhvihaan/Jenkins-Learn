@@ -17,6 +17,11 @@ pipeline {
         // Boolean Parameter
         booleanParam(defaultValue: false, description: 'Should we run the tests?', name: 'RUN_TESTS')
 
+        // Text Parameter
+        text(defaultValue: '', description: 'Enter a detailed description of the build', name: 'BUILD_DESCRIPTION')
+
+
+
 
     }
 
@@ -32,6 +37,13 @@ pipeline {
 		
 		    // Boolean
 		    echo "Run Tests: ${params.RUN_TESTS}"
+
+
+   		    // Text Parameter
+                    // Echo Text Parameter
+                    echo "Build Description: ${params.BUILD_DESCRIPTION}"
+
+
 
                 }
             }
